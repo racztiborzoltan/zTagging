@@ -1,0 +1,17 @@
+.theme-verysimple .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.theme-verysimple .item {
+	display: inline-block;
+	margin: 0.3em 0.6em;
+	padding: 0.2em 0.4em;
+}
+
+.theme-verysimple .item:focus ,
+.theme-verysimple .item:active ,
+.theme-verysimple .item:hover {
+	cursor: text;
+}

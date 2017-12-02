@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Example 1</title>
+        <link rel="stylesheet" href="../zTagging-theme-verysimple.css"/>
+    </head>
+    <body>
+        
+        
+        <section class="example-1">
+            
+	        <h1>Example 1: <small>complex</small></h1>
+	        
+            <input type="text" placeholder="input for tabindex" class="block"/>
+            
+	        <div class="temp"></div>
+	        
+	        <select class="destination-select" multiple="multiple"" size="1"></select>
+            
+            <input type="text" placeholder="input for tabindex" class="block"/>
+            
+        </section>
+        <script type="text/javascript" src="../zTagging.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
+		<script type="text/javascript">
+		(function(){
+		    var destination_select = document.querySelector('.destination-select');
+		    
+		    var temp_element = document.querySelector('.example-1 .temp');
+		    var tagging = new zTagging({
+	            theme: function(){
+	                this.getWrapperElement().classList.add('theme-verysimple');
+	            },
+	            addTag: function(item_element){
+	                console.log('ADD TAG:');
+	                console.log(item_element.textContent);
+	                
+	                var option = document.createElement('option');
+	                option.selected = true;
+	                option.setAttribute('selected', 'selected');
+	                option.value = option.textContent = item_element.textContent;
+	                destination_select.appendChild(option);
+	                item_element.dataset.optionIndex = destination_select.options.length - 1;
+	                destination_select.size = destination_select.options.length;
+	            },
+	            changeTag: function(item_element){
+	                console.log('CHANGE TAG:');
+	                console.log(item_element.textContent);
+	                
+	                var option_index = item_element.dataset.optionIndex;
+	                if (typeof option_index == 'undefined') {
+	                    return;
+	                }
+	                var option = destination_select.options[option_index];
+	                if (option) {
+		                option.value = option.textContent = item_element.textContent;
+	                }
+	            },
+	            removeTag: function(item_element){
+	                console.log('REMOVE TAG:');
+	                console.log(item_element);
+	                
+	                var option_index = item_element.dataset.optionIndex;
+	                if (typeof option_index == 'undefined') {
+	                    return;
+	                }
+	                var option = destination_select.options[option_index];
+	                if (option) {
+	                    option.remove();
+	                }
+	            },
+		    });
+		    var tagging_wrapper = tagging.getWrapperElement();
+		    
+		    temp_element.replaceWith(tagging_wrapper);
+		})();
+	    </script>
+    </body>
+</html>
